@@ -28,7 +28,7 @@
         "nunomaduro/collision": "^7.0|^8.0|^9.0",
         "larastan/larastan": "^3.0.2",
         "orchestra/testbench": "^9.0|^10.0",
-        "pestphp/pest": "^3.0",
+        "pestphp/pest": "^3.8.5",
         "pestphp/pest-plugin-laravel": "^3.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
