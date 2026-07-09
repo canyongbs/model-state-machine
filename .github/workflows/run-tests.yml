@@ -67,4 +67,4 @@ jobs:
           composer update "--${STABILITY}" --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/pest
+        run: vendor/bin/pest --no-coverage
