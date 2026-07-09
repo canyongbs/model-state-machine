@@ -5,7 +5,7 @@ This package adds support for creating state machines for attributes on Laravel 
 ## Requirements
 
 - PHP 8.2 or higher
-- Laravel 10.x or higher
+- Laravel 12.x or higher
 
 ## Installation
 
@@ -33,11 +33,12 @@ enum PostState: string
 
     #[AllowTransitionTo(self::PUBLISHED)]
     case PENDING = 'pending';
-    
+
     case PUBLISHED = 'published';
-    
+
 }
 ```
+
 Here's what the Blog post model would look like:
 
 ```php
@@ -46,19 +47,20 @@ class Post extends Model
     use HasStateMachine;
 
     protected $casts = [
-      'status' => PostState::class  
+      'status' => PostState::class
     ];
-    
-    
+
+
     public function getStateMachineFields(): array
     {
         return [
             'status'
         ];
     }
-    
+
 }
 ```
+
 A model can have as many state machine fields as you want,
 You need to add them to the list using the `getStateMachineFields` method.
 
@@ -98,6 +100,7 @@ $stateMachine->getStateTransitions(PostState::PENDING);
 ### Using transitions
 
 To use transitions, call the `transitionTo` method on the state field as follows:
+
 ```php
 $stateMachine->transitionTo(PostState::PUBLISHED);
 // or $stateMachine->transitionTo('published');
@@ -181,7 +184,7 @@ $stateMachine->transitionTo(PostState::PENDING, [
 ]);
 ```
 
-Here's how our `SendNotificationToAdmin` action would look like: 
+Here's how our `SendNotificationToAdmin` action would look like:
 
 ```php
 class SendNotificationToAdmin implements StateMachineAction, StateMachineValidation
@@ -192,7 +195,7 @@ class SendNotificationToAdmin implements StateMachineAction, StateMachineValidat
         $validator = validator($additionalData, [
             'message' => 'required',
         ]);
-        
+
         if ($validator->fails()) {
             // throw exception
         }
@@ -208,7 +211,6 @@ class SendNotificationToAdmin implements StateMachineAction, StateMachineValidat
 ### Custom transition Classes
 
 This package comes with a default transition class that save new state after running State & Transition Actions. If you need to do more than just changing to the new state, you can use transition classes.
-
 
 Custom transition are classes that implements `Bvtterfly\ModelStateMachine\Contracts\StateTransition`.
 
@@ -230,6 +232,7 @@ class DraftToPending implements StateTransition
 }
 
 ```
+
 You can pass this class as a third argument to the `#[AllowTransitionTo]`.
 
 Then, Our `PostState` would look like this:
@@ -248,7 +251,6 @@ enum PostState: string
     case PUBLISHED = 'published';
 }
 ```
-
 
 ## Testing
 
